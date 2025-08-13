@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>reCAPTCHA</title>
+  <!-- v2 Checkbox script (not enterprise, not v3) -->
+  <script src="https://www.google.com/recaptcha/api.js?onload=onload&render=explicit" async defer></script>
+  <style>
+    html,body{height:100%;margin:0}
+    /* Center the checkbox and remove any extra UI */
+    .center{height:100%;display:flex;align-items:center;justify-content:center}
+  </style>
+</head>
+<body>
+  <div class="center">
+    <div id="recaptcha"></div>
+  </div>
+
+  <script>
+    function onToken(token){
+      // Send token back to Flutter
+      if (window.Recaptcha?.postMessage) window.Recaptcha.postMessage(token);
+      else console.log('token', token);
+    }
+
+    function onload(){
+      grecaptcha.render('recaptcha', {
+        sitekey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI', // google demo sitekey
+        callback: onToken,
+        size: 'normal',        // use 'compact' for a smaller box
+        // theme: 'dark',      // optional
+      });
+    }
+  </script>
+</body>
+</html>
