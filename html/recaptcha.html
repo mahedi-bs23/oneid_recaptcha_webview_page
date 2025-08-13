@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- v2 checkbox -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 <div style="margin-top: 50px; text-align:center;">
-    <form action="?" method="POST">
-        <div class="g-recaptcha"
-             data-sitekey="6Lcc2aQrAAAAAEmLD4rjrffiqf1LLUAU5sBrg0nd"
-             data-callback="captchaVerified">
-        </div>
-    </form>
+  <form>
+    <div class="g-recaptcha"
+         data-sitekey="YOUR_V2_SITE_KEY_FOR_mahedi-bs23.github.io"
+         data-callback="captchaVerified"
+         data-error-callback="captchaError"
+         data-expired-callback="captchaExpired"></div>
+  </form>
 </div>
 
 <script>
-    function captchaVerified(token) {
-        // Send token to Flutter via JS channel
-        Recaptcha.postMessage(token);
-    }
+  function captchaVerified(token) {
+    Recaptcha.postMessage(token);
+  }
+  function captchaError() {
+    Recaptcha.postMessage('__ERROR__');
+  }
+  function captchaExpired() {
+    Recaptcha.postMessage('__EXPIRED__');
+  }
 </script>
 </body>
 </html>
